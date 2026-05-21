@@ -1,0 +1,84 @@
+{%- comment -%}
+  silver-product-card
+  Reusable product card.
+
+  Required:
+    - product: a Shopify product drop
+
+  Optional:
+    - show_vendor: true | false (default false)
+    - aspect: 'square' | 'portrait' (default 'portrait')
+    - loading: 'lazy' (default) | 'eager'
+{%- endcomment -%}
+
+{%- liquid
+  assign aspect = aspect | default: 'portrait'
+  assign loading = loading | default: 'lazy'
+  assign show_vendor = show_vendor | default: false
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+  endif
+  assign sold_out = false
+  unless product.available
+    assign sold_out = true
+  endunless
+  assign secondary_image = product.images[1]
+-%}
+
+{%- if product -%}
+  <a
+    href="{{ product.url }}"
+    class="silver-product-card silver-product-card--{{ aspect }}{% if sold_out %} silver-product-card--sold-out{% endif %}"
+    aria-label="{{ product.title | escape }}"
+  >
+    <div class="silver-product-card__media">
+      {%- if product.featured_image != blank -%}
+        {{ product.featured_image | image_url: width: 800 | image_tag:
+           loading: loading,
+           widths: '320, 480, 640, 800',
+           sizes: '(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw',
+           class: 'silver-product-card__image silver-product-card__image--primary',
+           alt: product.featured_image.alt | default: product.title
+        }}
+
+        {%- if secondary_image != blank -%}
+          {{ secondary_image | image_url: width: 800 | image_tag:
+             loading: 'lazy',
+             widths: '320, 480, 640, 800',
+             sizes: '(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw',
+             class: 'silver-product-card__image silver-product-card__image--secondary',
+             alt: secondary_image.alt | default: product.title
+          }}
+        {%- endif -%}
+      {%- else -%}
+        <div class="silver-product-card__image silver-product-card__image--placeholder" aria-hidden="true">
+          {{ 'product-1' | placeholder_svg_tag: 'silver-product-card__placeholder-svg' }}
+        </div>
+      {%- endif -%}
+
+      {%- if on_sale and sold_out == false -%}
+        <span class="silver-product-card__badge silver-product-card__badge--sale">Sale</span>
+      {%- elsif sold_out -%}
+        <span class="silver-product-card__badge silver-product-card__badge--sold-out">Sold out</span>
+      {%- endif -%}
+    </div>
+
+    <div class="silver-product-card__content">
+      {%- if show_vendor and product.vendor != blank -%}
+        <p class="silver-product-card__vendor">{{ product.vendor }}</p>
+      {%- endif -%}
+
+      <h3 class="silver-product-card__title">{{ product.title }}</h3>
+
+      <p class="silver-product-card__price">
+        {%- if on_sale -%}
+          <span class="silver-product-card__price-original">{{ product.compare_at_price | money }}</span>
+          <span class="silver-product-card__price-sale">{{ product.price | money }}</span>
+        {%- else -%}
+          <span class="silver-product-card__price-current">{{ product.price | money }}</span>
+        {%- endif -%}
+      </p>
+    </div>
+  </a>
+{%- endif -%}

@@ -1,0 +1,141 @@
+{%- liquid
+  assign menu = linklists[section.settings.menu]
+  assign brand = section.settings.brand_text | default: shop.name
+  assign drawer_id = 'silver-drawer-' | append: section.id
+-%}
+
+<header class="silver-header" role="banner" data-silver-header>
+  <div class="silver-header__inner">
+    <button
+      type="button"
+      class="silver-header__menu-toggle"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="{{ drawer_id }}"
+      data-silver-menu-open
+    >
+      <svg class="silver-header__menu-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+        <path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <a href="{{ routes.root_url }}" class="silver-header__logo" aria-label="{{ brand | escape }} — home">
+      {{ brand }}
+    </a>
+
+    {%- if menu.links.size > 0 -%}
+      <nav class="silver-header__nav" aria-label="Primary">
+        <ul class="silver-header__nav-list">
+          {%- for link in menu.links -%}
+            <li class="silver-header__nav-item{% if link.links.size > 0 %} silver-header__nav-item--has-children{% endif %}">
+              <a href="{{ link.url }}" class="silver-header__nav-link{% if link.active %} silver-header__nav-link--active{% endif %}">
+                {{ link.title }}
+              </a>
+
+              {%- if link.links.size > 0 -%}
+                <ul class="silver-header__submenu" role="menu">
+                  {%- for child in link.links -%}
+                    <li class="silver-header__submenu-item" role="none">
+                      <a href="{{ child.url }}" class="silver-header__submenu-link" role="menuitem">
+                        {{ child.title }}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    <div class="silver-header__actions">
+      <a href="{{ routes.cart_url }}" class="silver-header__cart-link" aria-label="Cart, {{ cart.item_count }} item{% if cart.item_count != 1 %}s{% endif %}">
+        <span class="silver-header__cart-label">Cart</span>
+        {%- if cart.item_count > 0 -%}
+          <span class="silver-header__cart-count" aria-hidden="true">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+  </div>
+
+  {%- comment -%} Mobile drawer + backdrop {%- endcomment -%}
+  <div class="silver-header__backdrop" data-silver-menu-close aria-hidden="true"></div>
+
+  <aside
+    id="{{ drawer_id }}"
+    class="silver-header__drawer"
+    aria-label="Mobile menu"
+    aria-hidden="true"
+    tabindex="-1"
+  >
+    <div class="silver-header__drawer-inner">
+      <div class="silver-header__drawer-top">
+        <a href="{{ routes.root_url }}" class="silver-header__drawer-logo">{{ brand }}</a>
+        <button
+          type="button"
+          class="silver-header__drawer-close"
+          aria-label="Close menu"
+          data-silver-menu-close
+        >
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      {%- if menu.links.size > 0 -%}
+        <nav class="silver-header__drawer-nav" aria-label="Mobile primary">
+          <ul class="silver-header__drawer-nav-list">
+            {%- for link in menu.links -%}
+              <li class="silver-header__drawer-nav-item">
+                <a href="{{ link.url }}" class="silver-header__drawer-nav-link">{{ link.title }}</a>
+
+                {%- if link.links.size > 0 -%}
+                  <ul class="silver-header__drawer-submenu">
+                    {%- for child in link.links -%}
+                      <li class="silver-header__drawer-submenu-item">
+                        <a href="{{ child.url }}" class="silver-header__drawer-submenu-link">{{ child.title }}</a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+    </div>
+  </aside>
+</header>
+
+<script src="{{ 'silver-header.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Silver header",
+  "tag": "section",
+  "class": "silver-header-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_text",
+      "label": "Brand wordmark",
+      "default": "Velli Villa",
+      "info": "Text logo rendered in Lancelot."
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Primary menu",
+      "default": "main-menu",
+      "info": "Top-level links render as nav items. Child links render as dropdowns."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Silver header"
+    }
+  ]
+}
+{% endschema %}

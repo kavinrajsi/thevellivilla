@@ -1,0 +1,37 @@
+{
+  "sections": {
+    "hero": {
+      "type": "silver-hero",
+      "settings": {
+        "eyebrow": "Spring collection",
+        "heading": "Crafted for slow living",
+        "subheading": "Hand-finished pieces for the home you keep returning to.",
+        "cta_label": "Shop the collection",
+        "cta_link": "shopify://collections/all",
+        "content_alignment": "center",
+        "size": "medium",
+        "text_theme": "light",
+        "overlay_opacity": 25
+      }
+    },
+    "featured_collections": {
+      "type": "silver-featured-collections",
+      "blocks": {
+        "col-1": { "type": "collection", "settings": {} },
+        "col-2": { "type": "collection", "settings": {} },
+        "col-3": { "type": "collection", "settings": {} }
+      },
+      "block_order": ["col-1", "col-2", "col-3"],
+      "settings": {
+        "eyebrow": "Shop by category",
+        "heading": "Curated collections",
+        "subheading": "Explore the rooms, materials, and moods that define the home.",
+        "columns_desktop": 3,
+        "card_style": "overlay",
+        "aspect": "portrait",
+        "show_count": false
+      }
+    }
+  },
+  "order": ["hero", "featured_collections"]
+}

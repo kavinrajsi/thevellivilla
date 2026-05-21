@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "silver-collections-list",
+      "settings": {
+        "eyebrow": "Browse",
+        "heading": "All collections",
+        "subheading": "Every category, every season — explore the full catalog.",
+        "columns_desktop": 3,
+        "card_style": "stacked",
+        "aspect": "portrait",
+        "sort": "manual",
+        "show_count": true
+      }
+    }
+  },
+  "order": ["main"]
+}

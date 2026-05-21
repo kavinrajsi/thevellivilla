@@ -1,0 +1,107 @@
+{%- liquid
+  assign cols = section.settings.columns_desktop | default: 3
+  assign aspect = section.settings.aspect | default: 'portrait'
+  assign style = section.settings.card_style | default: 'overlay'
+  assign show_count = section.settings.show_count
+-%}
+
+<section class="silver-featured-collections" aria-label="{{ section.settings.heading | default: 'Featured collections' | escape }}">
+  <div class="silver-featured-collections__inner">
+    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+      <header class="silver-featured-collections__header">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="silver-featured-collections__eyebrow subheading subheading--2">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="silver-featured-collections__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.subheading != blank -%}
+          <p class="silver-featured-collections__subheading body-text body-text--1">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="silver-featured-collections__grid silver-featured-collections__grid--cols-{{ cols }}">
+        {%- for block in section.blocks -%}
+          {%- assign collection = collections[block.settings.collection] -%}
+          <div class="silver-featured-collections__item" {{ block.shopify_attributes }}>
+            {%- render 'silver-collection-card',
+                collection: collection,
+                style: style,
+                aspect: aspect,
+                show_count: show_count
+            -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Silver featured collections",
+  "tag": "section",
+  "class": "silver-featured-collections-section",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop by category" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Curated collections" },
+    { "type": "textarea", "id": "subheading", "label": "Sub-heading" },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns (desktop)",
+      "min": 2, "max": 4, "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "card_style",
+      "label": "Card style",
+      "default": "overlay",
+      "options": [
+        { "value": "overlay", "label": "Title overlays image" },
+        { "value": "stacked", "label": "Title below image" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "aspect",
+      "label": "Image aspect ratio",
+      "default": "portrait",
+      "options": [
+        { "value": "portrait", "label": "Portrait (4:5)" },
+        { "value": "square", "label": "Square (1:1)" },
+        { "value": "landscape", "label": "Landscape (3:2)" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_count",
+      "label": "Show product count",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Silver featured collections",
+      "blocks": [
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}

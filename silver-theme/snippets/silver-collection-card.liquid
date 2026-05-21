@@ -1,0 +1,51 @@
+{%- comment -%}
+  silver-collection-card
+  Reusable collection card.
+
+  Required:
+    - collection: a Shopify collection drop
+
+  Optional:
+    - style: 'overlay' (default) or 'stacked' — text overlays image vs. sits below
+    - show_count: true | false (default false)
+    - aspect: 'square' | 'portrait' | 'landscape' (default 'portrait')
+    - loading: 'lazy' (default) | 'eager'
+{%- endcomment -%}
+
+{%- liquid
+  assign style = style | default: 'overlay'
+  assign aspect = aspect | default: 'portrait'
+  assign loading = loading | default: 'lazy'
+  assign show_count = show_count | default: false
+-%}
+
+{%- if collection -%}
+  <a
+    href="{{ collection.url }}"
+    class="silver-collection-card silver-collection-card--{{ style }} silver-collection-card--{{ aspect }}"
+    aria-label="{{ collection.title | escape }} collection"
+  >
+    <div class="silver-collection-card__media">
+      {%- if collection.featured_image != blank -%}
+        {{ collection.featured_image | image_url: width: 800 | image_tag:
+           loading: loading,
+           widths: '320, 480, 640, 800',
+           sizes: '(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw',
+           class: 'silver-collection-card__image',
+           alt: collection.featured_image.alt | default: collection.title
+        }}
+      {%- else -%}
+        <div class="silver-collection-card__image silver-collection-card__image--placeholder" aria-hidden="true">
+          {{ 'collection-apparel-1' | placeholder_svg_tag: 'silver-collection-card__placeholder-svg' }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="silver-collection-card__content">
+      <h3 class="silver-collection-card__title">{{ collection.title }}</h3>
+      {%- if show_count -%}
+        <p class="silver-collection-card__meta">{{ collection.products_count }} {{ collection.products_count | pluralize: 'item', 'items' }}</p>
+      {%- endif -%}
+    </div>
+  </a>
+{%- endif -%}

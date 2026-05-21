@@ -1,0 +1,115 @@
+{%- liquid
+  assign brand = section.settings.brand_text | default: shop.name
+  assign tagline = section.settings.tagline
+-%}
+
+<footer class="silver-footer" role="contentinfo">
+  <div class="silver-footer__inner">
+    <div class="silver-footer__columns">
+      <div class="silver-footer__column silver-footer__column--brand">
+        <a href="{{ routes.root_url }}" class="silver-footer__brand-logo">{{ brand }}</a>
+        {%- if tagline != blank -%}
+          <p class="silver-footer__brand-tagline">{{ tagline }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign block_menu = linklists[block.settings.menu]
+        -%}
+        <div class="silver-footer__column" {{ block.shopify_attributes }}>
+          {%- if block.settings.heading != blank -%}
+            <h5 class="silver-footer__column-title">{{ block.settings.heading }}</h5>
+          {%- endif -%}
+
+          {%- if block_menu.links.size > 0 -%}
+            <ul class="silver-footer__menu">
+              {%- for link in block_menu.links -%}
+                <li class="silver-footer__menu-item">
+                  <a href="{{ link.url }}" class="silver-footer__menu-link">{{ link.title }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="silver-footer__bottom">
+      <p class="silver-footer__copyright">
+        &copy; {{ 'now' | date: '%Y' }} {{ brand }}. All rights reserved.
+      </p>
+
+      {%- if section.settings.legal_menu != blank -%}
+        {%- assign legal = linklists[section.settings.legal_menu] -%}
+        {%- if legal.links.size > 0 -%}
+          <ul class="silver-footer__legal">
+            {%- for link in legal.links -%}
+              <li class="silver-footer__legal-item">
+                <a href="{{ link.url }}" class="silver-footer__legal-link">{{ link.title }}</a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Silver footer",
+  "tag": "section",
+  "class": "silver-footer-section",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_text",
+      "label": "Brand wordmark",
+      "default": "Velli Villa"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Brand tagline",
+      "default": "Crafted with care."
+    },
+    {
+      "type": "link_list",
+      "id": "legal_menu",
+      "label": "Legal links (bottom row)",
+      "info": "Privacy, Terms, etc."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu_column",
+      "name": "Menu column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Column heading",
+          "default": "Shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Silver footer",
+      "blocks": [
+        { "type": "menu_column", "settings": { "heading": "Shop" } },
+        { "type": "menu_column", "settings": { "heading": "Care" } },
+        { "type": "menu_column", "settings": { "heading": "Connect" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

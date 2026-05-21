@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "silver-collection-grid",
+      "settings": {
+        "columns_desktop": 3,
+        "aspect": "portrait",
+        "products_per_page": 12,
+        "show_vendor": false
+      }
+    }
+  },
+  "order": ["main"]
+}
