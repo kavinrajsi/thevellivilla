@@ -1,0 +1,11 @@
+.container {
+  max-width: $container-max;
+  margin: 0 auto;
+  padding-left: $container-pad;
+  padding-right: $container-pad;
+
+  @media (min-width: $bp-md) {
+    padding-left: $space-lg;
+    padding-right: $space-lg;
+  }
+}

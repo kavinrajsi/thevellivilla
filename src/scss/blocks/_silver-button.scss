@@ -1,0 +1,81 @@
+// =============================================================================
+// silver-button — Reusable button / CTA primitive
+// =============================================================================
+
+.silver-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-body;
+  font-size: $font-size-body-3;
+  font-weight: $font-weight-semibold;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: $space-md $space-xl;
+  border: 1px solid transparent;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: background $transition-base, color $transition-base, border-color $transition-base;
+  white-space: nowrap;
+
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 2px;
+  }
+
+  // --- Variants --------------------------------------------------------------
+  &--primary {
+    background: $color-primary;
+    color: $color-bg;
+    border-color: $color-primary;
+
+    &:hover {
+      background: $color-primary-hover;
+      border-color: $color-primary-hover;
+      color: $color-bg;
+    }
+  }
+
+  &--secondary {
+    background: transparent;
+    color: $color-primary;
+    border-color: $color-primary;
+
+    &:hover {
+      background: $color-primary;
+      color: $color-bg;
+    }
+  }
+
+  &--light {
+    background: $color-bg;
+    color: $color-primary;
+    border-color: $color-bg;
+
+    &:hover {
+      background: $color-surface-warm;
+      border-color: $color-surface-warm;
+      color: $color-primary;
+    }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: $color-bg;
+    border-color: rgba(255, 255, 255, 0.7);
+
+    &:hover {
+      background: $color-bg;
+      color: $color-primary;
+      border-color: $color-bg;
+    }
+  }
+
+  // --- Sizes -----------------------------------------------------------------
+  &--small {
+    padding: $space-sm $space-md;
+    font-size: $font-size-small;
+  }
+}

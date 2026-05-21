@@ -1,0 +1,86 @@
+// =============================================================================
+// Design tokens — silver theme
+// Source of truth: Velli Villa Figma file
+//   - Typography: node 253-1494 (applied)
+//   - Colors:     node 253-1522 (TODO: placeholders below)
+// =============================================================================
+
+@use "sass:math";
+
+// --- Colors (Figma node 253-1522) --------------------------------------------
+// Raw brand palette — source of truth, do not edit values without updating Figma.
+$brand-color-1:  #54401B; // dark brown
+$brand-color-2:  #6F5C39; // medium brown
+$brand-color-3:  #FFFFFF; // white
+$brand-color-4:  #AD844B; // warm gold
+$brand-color-5:  #3C3C28; // dark olive / charcoal
+$brand-color-6:  #858561; // muted olive
+$brand-color-7:  #F6F2E6; // pale cream
+$brand-color-8:  #E5E0C8; // pale beige
+$brand-color-9:  #F6F2E6; // (duplicate of 7 in Figma)
+$brand-color-10: #FAF7F1; // almost-white cream
+
+// Semantic roles — change these mappings to re-skin without touching raw palette.
+$color-bg:            $brand-color-3;   // #FFFFFF
+$color-surface:       $brand-color-10;  // #FAF7F1
+$color-surface-alt:   $brand-color-7;   // #F6F2E6
+$color-surface-warm:  $brand-color-8;   // #E5E0C8
+$color-text:          $brand-color-5;   // #3C3C28
+$color-text-muted:    $brand-color-6;   // #858561
+$color-primary:       $brand-color-1;   // #54401B
+$color-primary-hover: $brand-color-2;   // #6F5C39
+$color-accent:        $brand-color-4;   // #AD844B
+$color-border:        $brand-color-8;   // #E5E0C8
+
+// --- Typography (Figma node 253-1494) ----------------------------------------
+// Loaded via <link> in layout/theme.liquid (Google Fonts).
+$font-heading: "Lancelot", serif;
+$font-body:    "Inter", sans-serif;
+
+$font-weight-regular:  400;
+$font-weight-semibold: 600;
+
+// Base — Body Text 3 (16/19) is the default body size.
+$font-size-base:   16px;
+$line-height-base: math.div(19, 16); // 1.1875
+
+// Display / headings — all Lancelot 400
+$font-size-h1:   82px;  $line-height-h1: math.div(91, 82);
+$font-size-h2:   72px;  $line-height-h2: math.div(80, 72);
+$font-size-h3:   62px;  $line-height-h3: math.div(69, 62);
+$font-size-h4:   42px;  $line-height-h4: math.div(46, 42);
+$font-size-h5:   24px;  $line-height-h5: math.div(27, 24);
+
+// Sub-headings — Inter
+$font-size-sub-1: 28px; $line-height-sub-1: math.div(34, 28); $weight-sub-1: $font-weight-semibold;
+$font-size-sub-2: 24px; $line-height-sub-2: math.div(29, 24); $weight-sub-2: $font-weight-regular;
+
+// Body — Inter 400
+$font-size-body-1: 20px; $line-height-body-1: math.div(24, 20);
+$font-size-body-2: 18px; $line-height-body-2: math.div(22, 18);
+$font-size-body-3: 16px; $line-height-body-3: math.div(19, 16);
+
+// Small — not in Figma spec; used for meta/captions/badges.
+$font-size-small: 14px;
+
+// --- Spacing -----------------------------------------------------------------
+$space-xs:  0.25rem;
+$space-sm:  0.5rem;
+$space-md:  1rem;
+$space-lg:  1.5rem;
+$space-xl:  2.5rem;
+$space-2xl: 4rem;
+
+// --- Breakpoints -------------------------------------------------------------
+$bp-sm: 640px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+
+// --- Layout ------------------------------------------------------------------
+$container-max:   1280px;
+$container-pad:   $space-md;
+$header-height:   72px;
+$radius-sm:       2px;
+$radius-md:       4px;
+$transition-base: 200ms ease;

@@ -1,0 +1,14 @@
+{
+  "name": "silver-theme-build",
+  "version": "0.1.0",
+  "private": true,
+  "description": "SCSS build pipeline for the silver Shopify theme",
+  "scripts": {
+    "dev:css": "sass --watch src/scss/main.scss:silver-theme/assets/silver.css --style=expanded",
+    "build:css": "sass src/scss/main.scss:silver-theme/assets/silver.css --style=compressed --no-source-map",
+    "dev": "npm run dev:css"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0"
+  }
+}

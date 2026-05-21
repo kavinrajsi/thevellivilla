@@ -1,0 +1,26 @@
+// =============================================================================
+// silver theme — entry stylesheet
+// Compiled to: silver-theme/assets/silver.css
+// Class naming: BEM (.block, .block__element, .block--modifier)
+// =============================================================================
+
+@use "sass:math";
+
+// 1. Tokens (no output)
+@import "variables";
+
+// 2. Foundations
+@import "reset";
+@import "base";
+@import "layout";
+
+// 3. BEM blocks
+@import "blocks/silver-button";
+@import "blocks/silver-header";
+@import "blocks/silver-footer";
+@import "blocks/silver-hero";
+@import "blocks/silver-collection-card";
+@import "blocks/silver-featured-collections";
+@import "blocks/silver-product-card";
+@import "blocks/silver-collection-grid";
+@import "blocks/silver-collections-list";

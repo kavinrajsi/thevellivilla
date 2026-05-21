@@ -1,0 +1,133 @@
+// =============================================================================
+// silver-product-card — Reusable product card
+// =============================================================================
+
+.silver-product-card {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+
+  // --- Media -----------------------------------------------------------------
+  &__media {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: $color-surface-warm;
+    margin-bottom: $space-md;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 400ms ease, transform 400ms ease;
+  }
+
+  &__image--primary {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__image--secondary {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0;
+  }
+
+  &__image--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg { width: 60%; height: auto; opacity: 0.4; }
+  }
+
+  // --- Aspect ratios ---------------------------------------------------------
+  &--square &__media   { aspect-ratio: 1 / 1; }
+  &--portrait &__media { aspect-ratio: 4 / 5; }
+
+  // --- Hover swap ------------------------------------------------------------
+  &:hover &__image--secondary { opacity: 1; }
+  &:hover &__image--primary   { transform: scale(1.02); }
+
+  // --- Badges ----------------------------------------------------------------
+  &__badge {
+    position: absolute;
+    top: $space-sm;
+    left: $space-sm;
+    z-index: 3;
+    font-family: $font-body;
+    font-size: $font-size-small;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: $space-xs $space-sm;
+    border-radius: $radius-sm;
+    line-height: 1;
+
+    &--sale {
+      background: $color-accent;
+      color: $color-bg;
+    }
+
+    &--sold-out {
+      background: $color-text-muted;
+      color: $color-bg;
+    }
+  }
+
+  // --- Content ---------------------------------------------------------------
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+  }
+
+  &__vendor {
+    font-family: $font-body;
+    font-size: $font-size-small;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0;
+  }
+
+  &__title {
+    font-family: $font-body;
+    font-size: $font-size-body-3;
+    font-weight: $font-weight-regular;
+    line-height: $line-height-body-3;
+    color: $color-text;
+    margin: 0;
+    transition: color $transition-base;
+  }
+
+  &__price {
+    font-family: $font-body;
+    font-size: $font-size-body-3;
+    color: $color-text;
+    margin: 0;
+    display: flex;
+    gap: $space-sm;
+    align-items: baseline;
+  }
+
+  &__price-original {
+    color: $color-text-muted;
+    text-decoration: line-through;
+  }
+
+  &__price-sale {
+    color: $color-accent;
+    font-weight: $font-weight-semibold;
+  }
+
+  // --- Hover -----------------------------------------------------------------
+  &:hover &__title { color: $color-accent; }
+
+  // --- Sold out state --------------------------------------------------------
+  &--sold-out &__image--primary { opacity: 0.6; }
+}

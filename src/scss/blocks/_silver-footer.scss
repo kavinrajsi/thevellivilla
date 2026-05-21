@@ -1,0 +1,141 @@
+// =============================================================================
+// silver-footer — Primary site footer
+// =============================================================================
+
+.silver-footer {
+  background: $color-surface-alt;
+  color: $color-text;
+  border-top: 1px solid $color-border;
+  margin-top: $space-2xl;
+
+  &__inner {
+    max-width: $container-max;
+    margin: 0 auto;
+    padding: $space-2xl $container-pad $space-lg;
+
+    @media (min-width: $bp-md) {
+      padding-left: $space-lg;
+      padding-right: $space-lg;
+    }
+  }
+
+  // --- Columns ---------------------------------------------------------------
+  &__columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-xl;
+    padding-bottom: $space-2xl;
+    border-bottom: 1px solid $color-border;
+
+    @media (min-width: $bp-md) {
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: $space-2xl;
+    }
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+
+    &--brand {
+      gap: $space-sm;
+    }
+  }
+
+  // --- Brand column ----------------------------------------------------------
+  &__brand-logo {
+    font-family: $font-heading;
+    font-weight: $font-weight-regular;
+    font-size: $font-size-h4;
+    line-height: 1;
+    color: $color-primary;
+    text-decoration: none;
+    transition: color $transition-base;
+
+    &:hover { color: $color-primary-hover; }
+  }
+
+  &__brand-tagline {
+    font-family: $font-body;
+    font-size: $font-size-body-3;
+    line-height: $line-height-body-3;
+    color: $color-text-muted;
+    margin: 0;
+    max-width: 32ch;
+  }
+
+  // --- Menu columns ----------------------------------------------------------
+  &__column-title {
+    font-family: $font-body;
+    font-size: $font-size-sub-2;
+    line-height: $line-height-sub-2;
+    font-weight: $font-weight-semibold;
+    color: $color-text;
+    margin: 0 0 $space-xs;
+  }
+
+  &__menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $space-sm;
+  }
+
+  &__menu-item { margin: 0; }
+
+  &__menu-link {
+    font-family: $font-body;
+    font-size: $font-size-body-3;
+    color: $color-text-muted;
+    text-decoration: none;
+    transition: color $transition-base;
+
+    &:hover { color: $color-accent; }
+  }
+
+  // --- Bottom bar ------------------------------------------------------------
+  &__bottom {
+    padding-top: $space-lg;
+    display: flex;
+    flex-direction: column;
+    gap: $space-sm;
+    align-items: flex-start;
+
+    @media (min-width: $bp-md) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__copyright {
+    font-family: $font-body;
+    font-size: $font-size-small;
+    color: $color-text-muted;
+    margin: 0;
+  }
+
+  &__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-md;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__legal-item { margin: 0; }
+
+  &__legal-link {
+    font-family: $font-body;
+    font-size: $font-size-small;
+    color: $color-text-muted;
+    text-decoration: none;
+    transition: color $transition-base;
+
+    &:hover { color: $color-accent; }
+  }
+}

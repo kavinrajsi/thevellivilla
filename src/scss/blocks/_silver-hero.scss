@@ -1,0 +1,131 @@
+// =============================================================================
+// silver-hero — Full-bleed hero section
+// =============================================================================
+
+.silver-hero {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: $color-surface-warm;
+
+  // --- Background image ------------------------------------------------------
+  &__image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: #000;
+    opacity: var(--silver-hero-overlay, 0.25);
+    pointer-events: none;
+  }
+
+  // --- Content container -----------------------------------------------------
+  &__inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: $container-max;
+    margin: 0 auto;
+    padding: $space-2xl $container-pad;
+
+    @media (min-width: $bp-md) {
+      padding-left: $space-lg;
+      padding-right: $space-lg;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+    max-width: 640px;
+  }
+
+  &__eyebrow {
+    margin: 0;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+
+  &__heading {
+    margin: 0;
+    font-family: $font-heading;
+    font-weight: $font-weight-regular;
+    font-size: $font-size-h2; // mobile-first; bumped up below
+    line-height: $line-height-h2;
+
+    @media (min-width: $bp-md) {
+      font-size: $font-size-h1;
+      line-height: $line-height-h1;
+    }
+  }
+
+  &__subheading {
+    margin: 0;
+    max-width: 48ch;
+  }
+
+  &__cta {
+    margin-top: $space-md;
+    align-self: flex-start;
+  }
+
+  // --- Modifiers: size -------------------------------------------------------
+  &--size-small  { min-height: 50vh; }
+  &--size-medium { min-height: 70vh; }
+  &--size-large  { min-height: 90vh; }
+
+  // --- Modifiers: alignment --------------------------------------------------
+  &--align-left .silver-hero__content {
+    margin-right: auto;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  &--align-center .silver-hero__content {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    align-items: center;
+  }
+
+  &--align-right .silver-hero__content {
+    margin-left: auto;
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  &--align-center .silver-hero__cta,
+  &--align-right  .silver-hero__cta {
+    align-self: auto;
+  }
+
+  // --- Modifiers: text theme -------------------------------------------------
+  &--text-light {
+    .silver-hero__eyebrow,
+    .silver-hero__heading,
+    .silver-hero__subheading { color: $color-bg; }
+  }
+
+  &--text-dark {
+    .silver-hero__eyebrow,
+    .silver-hero__heading,
+    .silver-hero__subheading { color: $color-text; }
+  }
+}
