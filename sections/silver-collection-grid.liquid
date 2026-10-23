@@ -54,12 +54,7 @@
         <div class="silver-collection-grid__grid silver-collection-grid__grid--cols-{{ cols }}">
           {%- for product in collection.products -%}
             <div class="silver-collection-grid__item">
-              {%- render 'silver-product-card',
-                  product: product,
-                  show_vendor: show_vendor,
-                  aspect: aspect,
-                  loading: forloop.index0 < 4 | default: 'lazy'
-              -%}
+              {%- render 'silver-product-card', product: product, show_vendor: show_vendor, aspect: aspect, loading: forloop.index0, default: 'lazy' -%}
             </div>
           {%- endfor -%}
         </div>
@@ -130,3 +125,20 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {%- render 'silver-product-card',
+                      product: product,
+                      show_vendor: show_vendor,
+                      aspect: aspect,
+                      loading: forloop.index0 < 4 | default: 'lazy'
+                  -%}
+  to: "{%- render 'silver-product-card', product: product, show_vendor: show_vendor,
+    aspect: aspect, loading: forloop.index0, default: 'lazy' -%}"
+  position: 2365..2503
+{% endcomment %}
